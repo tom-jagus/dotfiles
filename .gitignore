@@ -1,1 +1,40 @@
-nvim
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+# Neovim config, swap and backup files
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*~
+
+# Log files
+*.log
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# Node.js (if ever used for scripts or tooling)
+node_modules/
+
+# Dev environment
+.env
+.cache/
+.python-version
+.nvm/
+
+# Editor / IDE configs
+nvim/
+
+# Obsidian / Markdown knowledge base metadata
+.obsidian/
+
+# Lua bytecode
+*.luac
+
