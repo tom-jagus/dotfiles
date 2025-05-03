@@ -427,12 +427,18 @@ customCommands:
     commandMenu:
       - key: c
         context: "localBranches"
-        description: "complete branch {{.SelectedLocalBranch.Name}}"
-        subprocess: true
+        description: "done, merge to main and delete local/remote"
+        prompts:
+          - type: "confirm"
+            body: "{{.SelectedLocalBranch.Name}}\n\nAre you sure you want to merge this branch to main and delete local/remote branch?"
+        command: "git hf done {{.SelectedLocalBranch.Name}}"
       - key: d
         context: "localBranches"
-        description: "drop branch {{.SelectedLocalBranch.Name}}"
-        command: ""
+        description: "drop, delete local and remote branch"
+        prompts:
+          - type: "confirm"
+            body: "{{.SelectedLocalBranch.Name}}\n\nAre you sure you want to completely delete this local/remote branch?"
+        command: "git hf drop {{.SelectedLocalBranch.Name}}"
       - key: s
         context: "localBranches"
         description: "start new branch..."
@@ -442,19 +448,19 @@ customCommands:
             key: "branchType"
             options:
               - name: "feature"
-                description: "feat/[branch_name]"
+                description: "creates feat/ branch"
                 value: "feat"
               - name: "test"
-                description: "test/[branch_name]"
+                description: "creates test/ branch"
                 value: "test"
               - name: "fix"
-                description: "fix/[branch_name]"
+                description: "creates fix/ branch"
                 value: "fix"
               - name: "refactor"
-                description: "refactor/[branch_name]"
+                description: "creates refactor/ branch"
                 value: "refactor"
               - name: "docs"
-                description: "docs/[branch_name]"
+                description: "creates docs/ branch"
                 value: "docs"
           - type: "input"
             title: "define new branch name"
