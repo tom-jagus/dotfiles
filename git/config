@@ -1,0 +1,35 @@
+[alias]
+  hf = "!f() { \
+    if [ $# -lt 2 ]; then \
+      if [ \"$1\" = \"help\" ]; then \
+        echo ''; \
+        echo '🔹 Hub Flow Commands (git hf)'; \
+        echo '----------------------------------'; \
+        echo '  git hf feat <name>       Create a new feature branch'; \
+        echo '  git hf fix <name>        Create a new fix branch'; \
+        echo '  git hf test <name>       Create a test/experimental branch'; \
+        echo '  git hf docs <name>       Create a documentation branch'; \
+        echo '  git hf refactor <name>   Create a refactor branch'; \
+        echo '  git hf done <branch>     Merge to main and delete local/remote'; \
+        echo '  git hf drop <branch>     Delete local and remote branch'; \
+        echo ''; \
+        exit 0; \
+      fi; \
+      echo 'Usage: git hf [feat|fix|test|docs|refactor|done|drop] <branch-name>'; \
+      exit 1; \
+    fi; \
+    cmd=$1; shift; name=$1; \
+    case $cmd in \
+      feat) git checkout main && git pull && git checkout -b feat/$name ;; \
+      fix) git checkout main && git pull && git checkout -b fix/$name ;; \
+      test) git checkout main && git pull && git checkout -b test/$name ;; \
+      docs) git checkout main && git pull && git checkout -b docs/$name ;; \
+      refactor) git checkout main && git pull && git checkout -b refactor/$name ;; \
+      done) git checkout main && git pull && git merge --no-ff $name && git branch -d $name && git push && git push origin --delete $name ;; \
+      drop) git branch -D $name && git push origin --delete $name ;; \
+      *) echo '❌ Unknown subcommand: '$cmd; echo 'Run: git hf help'; exit 1 ;; \
+    esac; \
+  }; f"
+
+[core]
+  autocrlf = input
