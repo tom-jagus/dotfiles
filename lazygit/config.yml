@@ -423,36 +423,44 @@ disableStartupPopups: false
 # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md
 customCommands: 
   - key: "I"
-    description: "Show github-flow options..."
-    context: "localBranches"
-    prompts:
-      - type: "menu"
-        title: "github flow"
-        key: "githubFlowActions"
-        options:
-          - name: "drop branch {{.SelectedLocalBranch.Name}}"
-            description: ""
-            value: "drop"
-          - name: "finish branch {{.SelectedLocalBranch.Name}}"
-            description: ""
-            value: "done"
-          - name: "start feature branch"
-            description: ""
-            value: "feat"
-          - name: "start test branch"
-            description: ""
-            value: "test"
-          - name: "start refactor"
-            description: ""
-            value: "refactor"
-          - name: "start docs"
-            description: ""
-            value: "docs"
-      - type: "input"
-        title: "Name new branch"
-        key: "BranchName"
-        initialValue: ""
-    command: "git hf {{.Form.githubFlowActions}} {{.Form.BranchName}}"
+    description: "github-flow options"
+    commandMenu:
+      - key: c
+        context: "localBranches"
+        description: "complete branch {{.SelectedLocalBranch.Name}}"
+        subprocess: true
+      - key: d
+        context: "localBranches"
+        description: "drop branch {{.SelectedLocalBranch.Name}}"
+        command: ""
+      - key: s
+        context: "localBranches"
+        description: "start new branch..."
+        prompts:
+          - type: "menu"
+            title: "select new branch type"
+            key: "branchType"
+            options:
+              - name: "feature"
+                description: "feat/[branch_name]"
+                value: "feat"
+              - name: "test"
+                description: "test/[branch_name]"
+                value: "test"
+              - name: "fix"
+                description: "fix/[branch_name]"
+                value: "fix"
+              - name: "refactor"
+                description: "refactor/[branch_name]"
+                value: "refactor"
+              - name: "docs"
+                description: "docs/[branch_name]"
+                value: "docs"
+          - type: "input"
+            title: "define new branch name"
+            key: "branchName"
+            initialValue: ""
+        command: "git hf {{.Form.branchType}} {{.Form.branchName}}"
 
 
 
