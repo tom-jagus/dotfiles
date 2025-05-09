@@ -22,36 +22,18 @@
       "width": 300
     }
   },
+  "display_index_preferences": {
+    "0": "IVM761B-5&3adbc4c9&0&UID261",
+    "1": "CMN14D4-5&3adbc4c9&0&UID256"
+  },
+
   "bar_configurations": [
-    "$Env:KOMOREBI_CONFIG_HOME/bar.laptop_screen.json",
-    "$Env:KOMOREBI_CONFIG_HOME/bar.external_monitor.json"
+    "$Env:KOMOREBI_CONFIG_HOME/bar.GB3271QSU_iiyama.json",
+    "$Env:KOMOREBI_CONFIG_HOME/bar.SF314-42_laptop.json"
   ],
   "monitors": [
     {
-      "workspaces": [
-        {
-          "name": "D",
-          "layout": "BSP"
-        },
-        {
-          "name": "2",
-          "layout": "BSP"
-        },
-        {
-          "name": "3",
-          "layout": "BSP"
-        },
-        {
-          "name": "4",
-          "layout": "BSP"
-        },
-        {
-          "name": "5",
-          "layout": "BSP"
-        }
-      ]
-    },
-    {
+      // Primary monitor
       "workspaces": [
         {
           "name": "1",
@@ -63,17 +45,19 @@
           "initial_workspace_rules": [
             {
               "kind": "Exe",
-              "id": "vivaldi.exe"
+              "id": "WindowsTerminal.exe"
             },
-            {
-              "kind": "Exe",
-              "id": "chrome.exe"
-            }
           ]
         },
         {
           "name": "3",
-          "layout": "BSP"
+          "layout": "BSP",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "vivaldi.exe"
+            },
+          ]
         },
         {
           "name": "4",
@@ -84,7 +68,31 @@
           "layout": "BSP"
         }
       ]
-    }
+    },
+    // Secondary monitor
+    {
+      "workspaces": [
+        {
+          "name": "1",
+          "layout": "BSP",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Spotify.exe"
+            },
+          ]
+
+        },
+        {
+          "name": "2",
+          "layout": "BSP"
+        },
+        {
+          "name": "3",
+          "layout": "BSP"
+        },
+      ]
+    },
   ]
 }
 

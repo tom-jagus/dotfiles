@@ -1,13 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.33/schema.bar.json",
-  "position": {
-    "end": {
-      "x": 2560,
-      "y": 35
-    }
-  },
+  "height": 35,
   "monitor": {
-    "index": 1,
+    "index": 0,
     "work_area_offset": {
       "left": 0,
       "top": 35,
@@ -67,4 +62,3 @@
     }
   ]
 }
-
