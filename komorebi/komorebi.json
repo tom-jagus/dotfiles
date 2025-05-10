@@ -37,7 +37,13 @@
       "workspaces": [
         {
           "name": "1",
-          "layout": "VerticalStack"
+          "layout": "VerticalStack",
+          "workspace_rules": [
+            {
+              "kind": "Title",
+              "id": "SecondBrain"
+            }
+          ]
         },
         {
           "name": "2",
@@ -45,7 +51,7 @@
           "initial_workspace_rules": [
             {
               "kind": "Exe",
-              "id": "WindowsTerminal.exe"
+              "id": "vivaldi.exe"
             },
           ]
         },
@@ -55,7 +61,7 @@
           "initial_workspace_rules": [
             {
               "kind": "Exe",
-              "id": "vivaldi.exe"
+              "id": "WindowsTerminal.exe"
             },
           ]
         },
