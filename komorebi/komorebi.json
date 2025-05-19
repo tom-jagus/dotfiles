@@ -42,6 +42,10 @@
             {
               "kind": "Title",
               "id": "SecondBrain"
+            },
+            {
+              "kind": "Title",
+              "id": "DailyTasks"
             }
           ]
         },
