@@ -32,8 +32,8 @@
     "$Env:KOMOREBI_CONFIG_HOME/bar.SF314-42_laptop.json"
   ],
   "monitors": [
+    // Primary monitor
     {
-      // Primary monitor
       "workspaces": [
         {
           "name": "1",
@@ -76,7 +76,33 @@
         {
           "name": "5",
           "layout": "VerticalStack"
-        }
+        },
+        {
+          "name": "6",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "7",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "8",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "9",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "0",
+          "layout": "VerticalStack",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Spotify.exe"
+            },
+          ]
+        },
       ]
     },
     // Secondary monitor
@@ -87,22 +113,64 @@
           "layout": "VerticalStack",
           "initial_workspace_rules": [
             {
-              "kind": "Exe",
-              "id": "Spotify.exe"
+              "kind": "Title",
+              "id": "SecondBrain"
             },
+            {
+              "kind": "Title",
+              "id": "DailyTasks"
+            }
           ]
-
         },
         {
           "name": "2",
-          "layout": "VerticalStack"
+          "layout": "VerticalStack",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "vivaldi.exe"
+            },
+          ]
         },
         {
           "name": "3",
+          "layout": "VerticalStack",
+          "initial_workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "WindowsTerminal.exe"
+            },
+          ]
+        },
+        {
+          "name": "4",
           "layout": "VerticalStack"
+        },
+        {
+          "name": "5",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "6",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "7",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "8",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "9",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "0",
+          "layout": "VerticalStack",
         },
       ]
     },
   ]
 }
-
