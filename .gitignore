@@ -1,3 +1,9 @@
+# Keep credential stores and gh authentication data out of this repo.
+/.git-credentials
+/config/git/*credential*
+/config/gh/
+/.config/gh/
+
 # Ignore installed plugin code, but keep our plugin configuration.
 /config/herdr/plugins/*
 !/config/herdr/plugins/config/

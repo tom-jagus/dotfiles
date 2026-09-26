@@ -18,12 +18,14 @@ done
 sources=(
   "$repo_root/.bashrc"
   "$repo_root/config/starship.toml"
+  "$repo_root/config/git"
   "$repo_root/config/herdr"
   "$repo_root/config/yazi"
 )
 targets=(
   "$HOME/.bashrc"
   "$config_home/starship.toml"
+  "$config_home/git"
   "$config_home/herdr"
   "$config_home/yazi"
 )
@@ -35,7 +37,7 @@ for source in "${sources[@]}"; do
     exit 1
   fi
 done
-for source in "$repo_root/config/herdr" "$repo_root/config/yazi"; do
+for source in "$repo_root/config/git" "$repo_root/config/herdr" "$repo_root/config/yazi"; do
   if [[ ! -d "$source" ]]; then
     printf 'Expected directory: %s\n' "$source" >&2
     exit 1
