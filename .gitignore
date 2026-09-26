@@ -1,0 +1,10 @@
+# Ignore installed plugin code, but keep our plugin configuration.
+/config/herdr/plugins/*
+!/config/herdr/plugins/config/
+# Herdr registry and generated runtime state.
+/config/herdr/plugins.json
+/config/herdr/.plugins.lock
+/config/herdr/*.log
+/config/herdr/*.sock
+/config/herdr/session.json
+/config/herdr/release-notes.json
