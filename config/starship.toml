@@ -8,13 +8,11 @@
 format = """
 $username\
 $hostname\
-$directory\
+[ ](bold peach)${custom.path_prefix}$directory\
 $git_branch\
 $git_commit\
 $git_state\
-$git_metrics\
 $git_status\
-$fill \
 $c\
 $cmake\
 $cobol\
@@ -65,12 +63,16 @@ $meson\
 $spack\
 $aws\
 $crystal\
+$fill\
 $battery\
-$time\
 $cmd_duration\
 $line_break\
 $shell\
 $character"""
+
+# Keep battery and command duration at the right edge of the first line.
+[fill]
+symbol = " "
 
 # Status module
 [character]
@@ -83,25 +85,93 @@ error_symbol = '[](bold red)'
 format = '[ $user]($style) '
 style_user = "blue bold"
 style_root = "red bold"
-show_always = true
+show_always = false
 
 # Hostname module
 [hostname]
 format = '[ $ssh_symbol$hostname]($style) '
 style = "bold mauve"
-ssh_only = false
+ssh_only = true
 ssh_symbol = "󰖟 "
 
 # Directory module config
 [directory]
-format = '[ $path]($style)[$read_only]($read_only_style) '
+format = '[$path]($style)[$read_only]($read_only_style) '
 style = "bold peach"
 read_only_style = "red"
 truncate_to_repo = true
-truncation_symbol = ".."
-truncation_length = 2
+truncation_symbol = ""
+truncation_length = 3
 read_only = " "
 home_symbol = "~"
+
+[custom.path_prefix]
+description = "First folder, hidden repository root, and omitted-path markers"
+when = true
+shell = ['bash', '--noprofile', '--norc']
+format = '[$output](bold peach)'
+command = '''
+case "$PWD" in
+  "$HOME"|/) exit 0 ;;
+  "$HOME"/*)
+    prefix='~/'
+    relative=${PWD#"$HOME"/}
+    ;;
+  *)
+    prefix='/'
+    relative=${PWD#/}
+    ;;
+esac
+
+anchor=${PWD%"$relative"}${relative%%/*}
+
+# Git's relative prefix ends with '/', giving one slash per directory level.
+if repo_relative=$(git rev-parse --show-prefix 2>/dev/null); then
+  repo=$PWD
+  if [[ -n "$repo_relative" ]]; then
+    repo=${PWD%/"${repo_relative%/}"}
+  fi
+
+  case "$repo" in
+    "$anchor"|"$anchor"/*)
+      # At depths 0–2, the native module still includes the repo name.
+      if [[ "$repo" == "$anchor" ]]; then
+        case "$repo_relative" in
+          */*/*/) ;;
+          *) printf '%s' "$prefix"; exit 0 ;;
+        esac
+      fi
+
+      printf '%s%s/' "$prefix" "${relative%%/*}"
+      if [[ "$repo" != "$anchor" ]]; then
+        if [[ "${repo%/*}" != "$anchor" ]]; then
+          printf '…/'
+        fi
+        case "$repo_relative" in
+          */*/*/) printf '%s/' "${repo##*/}" ;;
+        esac
+      fi
+
+      # Exactly three levels leaves no gap after the restored repo name.
+      case "$repo_relative" in
+        */*/*/*/) printf '…/' ;;
+      esac
+      exit 0
+      ;;
+  esac
+fi
+
+# Outside repos, or when the repo is above the first-folder anchor.
+case "$relative" in
+  */*/*/*)
+    printf '%s%s/' "$prefix" "${relative%%/*}"
+    case "$relative" in
+      */*/*/*/*) printf '…/' ;;
+    esac
+    ;;
+  */*/*) printf '%s' "$prefix" ;;
+esac
+'''
 
 # Git branch module
 [git_branch]
@@ -123,22 +193,22 @@ style = "bold yellow"
 
 # Git status module
 [git_status]
-format = '$all_status $ahead_behind '
-conflicted = "[ Conflicted](red) "
-ahead = "[󰳡 Ahead](green)"
-behind = "[󰳛 Behind](red)"
-diverged = " [ Diverged](peach)"
-up_to_date = "[ Up to date](green)"
-untracked = " [ Untracked](peach)"
-stashed = " [ Stashed](yellow]"
-modified = " [󱅄 Modified](yellow)"
-staged = '[ Staged ($count)](green)'
-renamed = "[󰂮 Renamed](peach)"
-deleted = "[ Deleted](red)"
+format = '($all_status$ahead_behind )'
+conflicted = '[ $count](red) '
+ahead = '[󰳡 $count](green) '
+behind = '[󰳛 $count](red) '
+diverged = '[ ↑$ahead_count ↓$behind_count](peach) '
+up_to_date = ''
+untracked = '[ $count](peach) '
+stashed = '[ $count](yellow) '
+modified = '[󱅄 $count](yellow) '
+staged = '[ $count](green) '
+renamed = '[󰂮 $count](peach) '
+deleted = '[ $count](red) '
 
 # Command duration
 [cmd_duration]
-min_time = 0
+min_time = 3_000
 format = '[ $duration]($style) '
 style = 'dimmed text'
 show_notifications = true
@@ -149,7 +219,7 @@ min_time_to_notify = 60_000
 format = '[󰥔 $time]($style) '
 style = "subtext0"
 time_format = "%H:%M"
-disabled = false
+disabled = true
 
 # Battery indicator configuration
 [battery]
@@ -169,35 +239,6 @@ threshold = 20
 style = 'bold yellow'
 discharging_symbol = "󰁻"
 charging_symbol = "󰂆 "
-
-[[battery.display]]
-threshold = 40
-style = 'yellow'
-discharging_symbol = "󰁽"
-charging_symbol = "󰂈 "
-
-[[battery.display]]
-threshold = 60
-style = 'yellow'
-discharging_symbol = "󰁿"
-charging_symbol = "󰂉 "
-
-[[battery.display]]
-threshold = 80
-style = 'green'
-discharging_symbol = "󰂁"
-charging_symbol = "󰂊 "
-
-[[battery.display]]
-threshold = 100
-style = 'green'
-discharging_symbol = "󰁹"
-charging_symbol = "󰂅 "
-
-# Fill config
-[fill]
-style = "dimmed subtext0"
-symbol = "."
 
 # Catppuccin Mocha Color Palette Definition
 [palettes.catppuccin_mocha]
